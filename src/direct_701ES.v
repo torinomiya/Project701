@@ -3,6 +3,7 @@
 //この時は、Dataがずれているのだけを修正する。　
 //`define RasPi
 `define for501ES
+//`define CM6631_1fs	//謎のBCK = 128fs出しをしてくるので
 
 module direct_701ES(
 mck, aes3, ext_bck, ext_lrck, ext_data, bck, bck_701, lrck, lrck_701, data, data_701, APT_L, APT_R, HC74_Q, HC74_Q_inv
@@ -30,7 +31,7 @@ mck, aes3, ext_bck, ext_lrck, ext_data, bck, bck_701, lrck, lrck_701, data, data
     // wire active;
     // aes3_rx aes3_rx_ins (mck, aes3, 0, data, bck, bsync, lrck, active);
 
-    //外部からI2S注入
+    //外部からI2S注入する場合の確認用
     assign bck = ext_bck;
     assign lrck = ext_lrck;
     assign data = ext_data;
@@ -40,10 +41,12 @@ mck, aes3, ext_bck, ext_lrck, ext_data, bck, bck_701, lrck, lrck_701, data, data
     assign bck_701 = bck;
     assign data_701 = data;
     //I2Sなので16LJにするためにLRCKをBCKいっこ分おくらすことだけやる
-    I2S_to_16LJ64fs I2S_to_16LJ64fs_ins (lrck, bck, lrck_701);
+    I2S_to_16LJ64fs I2S_to_16LJ64fs_ins (ext_lrck, ext_bck, lrck_701);
+`elsif CM6631_1fs
+	 CM6631_to_16LJ32fs CM6631_to_16LJ32fs_ins (ext_bck, ext_data, ext_lrck, bck_701, data_701, lrck_701);
 `else
     //I2Sを 16LJ32fs に変換
-    I2S_to_16LJ32fs I2S_to_16LJ32fs_ins (bck, data, lrck, bck_701, data_701, lrck_701);
+    I2S_to_16LJ32fs I2S_to_16LJ32fs_ins (ext_bck, ext_data, ext_lrck, bck_701, data_701, lrck_701);
 `endif
 
 `ifdef for501ES
