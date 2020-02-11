@@ -10,7 +10,7 @@ module I2S_to_16LJ32fs(bck, data, lrck, bck_701, data_701, lrck_701);
 
 	reg data_701 = 0; 			//bck立下り基準なので、DATA出力は0初期化しておく
 	reg[4:0] data_counter = 0 ; //元のI2Sにおける　何bitめのDATAか
-	reg[31:0] data_fifo = 0; 	//元のI2S DATA (32bit) を 1sample分　格納しとくレジスタ
+	reg[31:0] data_fifo = 0; 	//元のI2S DATA (32bit) を 1sample分格納する
 
 	//LRCK を 元々のBCK2個ぶん = bck_701 1個分おくらせる
 	//--------------------------------------------------------
@@ -23,16 +23,6 @@ module I2S_to_16LJ32fs(bck, data, lrck, bck_701, data_701, lrck_701);
 
 	//bckの周波数の半分を出す。
 	//--------------------------------------------------------	
-	//5/14 fix negedgeだと50%くらいの確立でノイズ。-> たぶん前のWordのLSBを読んじゃうため。
-	/*
-	reg bck_cnt = 0;
-	always @ (posedge bck) 
-	begin
-		bck_cnt <= ~bck_cnt;
-	end
-	assign bck_701 = bck_cnt;
-	*/
-
 	reg bck_cnt;
 	reg lrck_changed;
 	always @ (negedge bck)
@@ -70,15 +60,5 @@ module I2S_to_16LJ32fs(bck, data, lrck, bck_701, data_701, lrck_701);
 	begin
 		data_701 = data_fifo [data_counter / 2];
 	end
-
-	/*
-	//BCK = 32fsの場合何個目かっているので見る
-	reg[4:0] data_counter_32fs = 0; //BCK=32fsとした場合、何個めのDATAか
-	always @ (negedge bck_701)
-	begin
-		data_701 <= data_fifo[data_counter_32fs];
-		data_counter_32fs = data_counter_32fs + 1;
-	end
-	*/
 
 endmodule

@@ -4,6 +4,7 @@ module I2S_to_16LJ64fs (lrck, bck, lrck_16LJ);
 	input lrck;
 	input bck;
 	output lrck_16LJ;
+	
 	reg lrck_16LJ;
 	reg lrck_before;
 
