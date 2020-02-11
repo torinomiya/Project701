@@ -1,11 +1,11 @@
 //lrck_I2SのばあいはBCK1個分ずらす
-module I2S_to_16LJ64fs (lrck, bck, lrck_16LJ);
+module delay_1BCK (lrck, bck, lrck_out);
 
 	input lrck;
 	input bck;
-	output lrck_16LJ;
+	output lrck_out;
 	
-	reg lrck_16LJ;
+	reg lrck_out;
 	reg lrck_before;
 
 	always @ (posedge bck)
@@ -15,7 +15,7 @@ module I2S_to_16LJ64fs (lrck, bck, lrck_16LJ);
 
 	always @ (negedge bck)
 	begin
-		lrck_16LJ <= lrck_before;
+		lrck_out <= lrck_before;
 	end
 
 endmodule

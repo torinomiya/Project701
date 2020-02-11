@@ -1,12 +1,10 @@
+//BCKを1/2分周する。
+//lrck_changedに同期させる。
 
-//bckの周波数の半分を出す。
-//--------------------------------------------------------	
-
-module half_freq(bck, lrck_changed, bck_701);
-
-	input bck; //-- bck
-	input lrck_changed; //-- Frame sync (asserted for channel A, negated for B)
-	output bck_701;
+module half_freq(bck, lrck_changed, bck_out);
+	input bck;
+	input lrck_changed;
+	output bck_out;
 
 	reg bck_cnt;
 
@@ -21,6 +19,6 @@ module half_freq(bck, lrck_changed, bck_701);
 			bck_cnt = ~bck_cnt;
 		end
 	end
-	assign bck_701 = bck_cnt;
+	assign bck_out = bck_cnt;
 	
 endmodule
