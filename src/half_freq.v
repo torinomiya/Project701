@@ -6,19 +6,18 @@ module half_freq(bck, lrck_changed, bck_out);
 	input lrck_changed;
 	output bck_out;
 
-	reg bck_cnt;
+	reg bck_out;
 
 	always @ (negedge bck)
 	begin
 		if(lrck_changed == 1)
 		begin
-			bck_cnt <= 0; 
+			bck_out <= 0; 
 		end
 		else
 		begin
-			bck_cnt <= ~bck_cnt;
+			bck_out <= ~bck_out;
 		end
 	end
-	assign bck_out = bck_cnt;
 	
 endmodule
