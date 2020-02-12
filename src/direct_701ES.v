@@ -43,7 +43,13 @@ mck, aes3, ext_bck, ext_lrck, ext_data, bck, bck_701, lrck, lrck_701, data, data
     //16bitのI2Sが出力される為、BCK1周期分だけ遅らせる
     delay_1BCK I2S16_to_16LJ_ins (ext_lrck, ext_bck, lrck_701);
 `elsif CM6631_1fs
-	//CM6631_to_16LJ32fs CM6631_to_16LJ32fs_ins (ext_bck, ext_data, ext_lrck, bck_701, data_701, lrck_701);
+	wire normal_bck;
+	wire normal_lrck;
+	wire normal_data;
+    //通常のI2Sに変換
+    CM6631_to_I2S64fs CM6631_to_I2S64fs_ins (ext_bck, ext_data, ext_lrck, normal_bck, normal_data, normal_lrck);	
+    //I2Sを16LJ に変換
+    I2S_to_16LJ I2S_to_16LJ_ins (normal_bck, normal_data, normal_lrck, bck_701, data_701, lrck_701);
 `else
     //I2Sを16LJ に変換
     I2S_to_16LJ I2S_to_16LJ_ins (ext_bck, ext_data, ext_lrck, bck_701, data_701, lrck_701);

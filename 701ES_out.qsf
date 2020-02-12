@@ -89,6 +89,7 @@ set_location_assignment PIN_F27 -to ext_lrck
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ext_bck
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ext_data
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ext_lrck
+set_global_assignment -name VERILOG_FILE src/CM6631_to_I2S64fs.v
 set_global_assignment -name VERILOG_FILE src/output_701ES.v
 set_global_assignment -name VERILOG_FILE src/output_501ES.v
 set_global_assignment -name VERILOG_FILE src/I2S_to_16LJ.v
@@ -96,6 +97,5 @@ set_global_assignment -name VERILOG_FILE src/half_freq.v
 set_global_assignment -name VERILOG_FILE src/direct_701ES.v
 set_global_assignment -name VERILOG_FILE src/delay_8BCK.v
 set_global_assignment -name VERILOG_FILE src/delay_1BCK.v
-set_global_assignment -name VERILOG_FILE src/CM6631_to_16LJ32fs.v
 set_global_assignment -name VERILOG_FILE src/aes3rx.v
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
