@@ -41,7 +41,6 @@ module CM6631_to_16LJ32fs(bck, data, lrck, bck_701, data_701, lrck_701);
 	
 	always @ (posedge bck)
 	begin
-		lrck_changed = 0;
 		//lrckの切り替わりを検出、読んでるbitのインデックスを0にする
 		//if(lrck_before != lrck_16LJ)
 		if(lrck_fifo[3] != lrck_701)
@@ -59,7 +58,7 @@ module CM6631_to_16LJ32fs(bck, data, lrck, bck_701, data_701, lrck_701);
 
 	always @ (negedge bck_701)
 	begin
-		data_701 = data_fifo [data_counter / 4];
+		data_701 <= data_fifo [data_counter / 4];
 	end
 
 endmodule
