@@ -15,7 +15,7 @@ module CM6631_to_I2S64fs(bck, data, lrck, bck_out, data_out, lrck_out);
 	//LRCK を 元々の2周期分遅らせる
 	wire lrck_32LJ;
 	delay_1BCK I2S_to_32LJ (lrck, bck, lrck_32LJ);
-	delay_1BCK delay (lrck_32LJ, bck, lrck_out);	
+	assign lrck_out = lrck;
 	
 	//BCKを1/2分周
 	//lrck_changed はないと、BCKのタイミングが狂うことがある

@@ -3,7 +3,9 @@
 //この時は、Dataがずれているのだけを修正する。　
 //`define RasPi
 `define for501ES
-//`define CM6631_1fs	//謎のBCK = 128fs出しをしてくるので
+
+//TODO: LRCKのカウントを行って、自動判別するとかしたい
+`define CM6631_1fs	//謎のBCK = 128fs出しをしてくるので
 
 module direct_701ES(
 mck, aes3, ext_bck, ext_lrck, ext_data, bck, bck_701, lrck, lrck_701, data, data_701, APT_L, APT_R, HC74_Q, HC74_Q_inv
@@ -46,8 +48,15 @@ mck, aes3, ext_bck, ext_lrck, ext_data, bck, bck_701, lrck, lrck_701, data, data
 	wire normal_bck;
 	wire normal_lrck;
 	wire normal_data;
+
     //通常のI2Sに変換
-    CM6631_to_I2S64fs CM6631_to_I2S64fs_ins (ext_bck, ext_data, ext_lrck, normal_bck, normal_data, normal_lrck);	
+    CM6631_to_I2S64fs CM6631_to_I2S64fs_ins (ext_bck, ext_data, ext_lrck, normal_bck, normal_data, normal_lrck);
+
+    // //test I2Sの変換がうまくいっているかどうかを確認する
+	// assign bck_701 = normal_bck;
+	// assign lrck_701 = normal_lrck;
+	// assign data_701 = normal_data;
+	
     //I2Sを16LJ に変換
     I2S_to_16LJ I2S_to_16LJ_ins (normal_bck, normal_data, normal_lrck, bck_701, data_701, lrck_701);
 `else
