@@ -89,6 +89,7 @@ set_location_assignment PIN_F27 -to ext_lrck
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ext_bck
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ext_data
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ext_lrck
+set_global_assignment -name VERILOG_FILE src/b32LJ_to_16LJ.v
 set_global_assignment -name VERILOG_FILE src/CM6631_to_I2S64fs.v
 set_global_assignment -name VERILOG_FILE src/output_701ES.v
 set_global_assignment -name VERILOG_FILE src/output_501ES.v
